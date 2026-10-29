@@ -1,0 +1,12 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Urja Meter API", "version": "2.0.0", "description": "Read-only API backed by normal Urja Meter Ops portal routes." },
+  "servers": [{ "url": "http://localhost:3000" }],
+  "paths": {
+    "/health": { "get": { "responses": { "200": { "description": "Service can accept requests" } } } },
+    "/v1/meters": { "get": { "summary": "Search live portal meters", "parameters": [{ "name": "q", "in": "query", "schema": { "type": "string" } }, { "name": "page", "in": "query", "schema": { "type": "integer", "minimum": 1, "default": 1 } }], "responses": { "200": { "description": "The portal's 20-record page" }, "502": { "$ref": "#/components/responses/PortalUnavailable" } } } },
+    "/v1/meters/{meterId}": { "get": { "summary": "Get live nameplate, hierarchy, and location", "parameters": [{ "name": "meterId", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Meter" }, "404": { "description": "Meter not found" }, "502": { "$ref": "#/components/responses/PortalUnavailable" } } } },
+    "/v1/meters/{meterId}/readings": { "get": { "summary": "Get portal default-window readings", "parameters": [{ "name": "meterId", "in": "path", "required": true, "schema": { "type": "string" } }], "responses": { "200": { "description": "Half-hourly readings with timestamp, kwh, kvah, and voltR" }, "404": { "description": "Meter not found" }, "502": { "$ref": "#/components/responses/PortalUnavailable" } } } }
+  },
+  "components": { "responses": { "PortalUnavailable": { "description": "The upstream portal rejected sign-in or could not be reached." } } }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "urja-meter-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A documented, read-only API over an Urja Meter Ops export.",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": { "node": ">=18" }
+}
